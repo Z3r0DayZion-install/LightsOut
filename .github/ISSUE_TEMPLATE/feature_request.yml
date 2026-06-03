@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an improvement for Lights Out
+title: "[feature]: "
+labels: enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / use case
+      description: What bedtime scenario isn't covered?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This belongs in the core timer (not LuxGrid RGB)
+          required: true
