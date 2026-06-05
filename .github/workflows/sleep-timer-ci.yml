@@ -202,6 +202,9 @@ jobs:
     needs: [validate, build, installer]
     if: always()
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Require green pipeline
         run: |

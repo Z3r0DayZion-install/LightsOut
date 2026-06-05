@@ -1,0 +1,52 @@
+{
+  "id": "sleep-ritual",
+  "name": "Sleep Ritual",
+  "description": "Lights Out bedtime pack — QWERTY countdown drain, warning row, punch flash, ambient breath. Pair with Lights Out LuxGrid RGB events.",
+  "version": "5.0.0",
+  "sourceApp": "LightsOut",
+  "channel": "sleep",
+  "events": [
+    "timer.start",
+    "timer.tick",
+    "timer.warning",
+    "lights.out",
+    "timer.completed",
+    "timer.cancelled"
+  ],
+  "zones": [
+    {
+      "id": "zone-qwerty",
+      "name": "Timer (QWERTY)",
+      "keys": ["Q", "W", "E", "R", "T", "Y"],
+      "source": "timer_progress",
+      "effect": "progress_fill"
+    },
+    {
+      "id": "zone-warn",
+      "name": "Warning (1-0)",
+      "keys": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+      "source": "timer_warning",
+      "effect": "warning_flash"
+    },
+    {
+      "id": "zone-punch",
+      "name": "Lights Out Punch",
+      "keys": ["Space", "Enter", "Escape"],
+      "source": "lights.out",
+      "effect": "pulse"
+    },
+    {
+      "id": "zone-ambient",
+      "name": "Ambient Fade",
+      "keys": ["A", "S", "D", "F"],
+      "source": "timer_remaining",
+      "effect": "breath"
+    }
+  ],
+  "studioSteps": [
+    "Open LuxGrid Studio",
+    "Select Sleep Ritual profile (built-in)",
+    "Event Monitor -> Start Watching",
+    "In Lights Out: enable LuxGrid RGB, start a ritual"
+  ]
+}

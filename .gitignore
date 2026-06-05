@@ -12,7 +12,7 @@ ci-artifacts/
 *.log
 
 # Separate products / experiments (not Lights Out canonical)
-luxgrid/
+/luxgrid/
 archive/
 repos/
 validation-artifacts/
