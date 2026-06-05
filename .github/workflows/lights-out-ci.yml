@@ -15,6 +15,7 @@ on:
       - 'PRODUCT.md'
       - 'VERSION'
       - 'CHANGELOG.md'
+      - 'packaging/**'
       - '.github/workflows/lights-out-ci.yml'
   pull_request:
     branches: [main, master]

@@ -126,6 +126,7 @@ jobs:
             dist/Release/README.txt
             dist/Release/BUILD_INFO.txt
             dist/Release/SHA256.txt
+            dist/Release/modules/**
           retention-days: 90
           if-no-files-found: error
 
