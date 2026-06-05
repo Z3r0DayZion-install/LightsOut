@@ -50,6 +50,9 @@ jobs:
           Write-Host "SLEEPTIMER_CI=$env:SLEEPTIMER_CI"
           Write-Host "SLEEPTIMER_DRY_RUN=$env:SLEEPTIMER_DRY_RUN"
 
+      - name: Install PS2EXE
+        run: Install-Module ps2exe -Force -Scope CurrentUser -Repository PSGallery
+
       - name: Agent safety lint
         run: ./scripts/Test-AgentSafety.ps1
 

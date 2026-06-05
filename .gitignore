@@ -1,0 +1,21 @@
+dist/
+!dist/README.md
+installer/output/
+*.bundle.ps1
+assets/*.png
+nightfall/**/bin/
+nightfall/**/obj/
+*.user
+*.suo
+ci-artifacts/
+!ci-artifacts/.gitkeep
+*.log
+
+# Separate products / experiments (not Lights Out canonical)
+luxgrid/
+archive/
+repos/
+validation-artifacts/
+SleepTimer-Electron/
+nightfall/
+SleepTimerApp/

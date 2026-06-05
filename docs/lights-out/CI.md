@@ -8,8 +8,8 @@ CI validates and builds Lights Out **without launching real shutdown**. All auto
 
 | Workflow | File | Purpose |
 |----------|------|---------|
-| **Lights Out CI** | [`.github/workflows/lights-out-ci.yml`](../../.github/workflows/lights-out-ci.yml) | Docs lint, safety gates, local CI build |
-| **Sleep Timer CI** | [`.github/workflows/sleep-timer-ci.yml`](../../.github/workflows/sleep-timer-ci.yml) | Full release build, installer, publish |
+| **Lights Out CI** | [`.github/workflows/lights-out-ci.yml`](../../.github/workflows/lights-out-ci.yml) | Docs lint, safety gates, safe build (installs ps2exe) |
+| **Lights Out Release CI** | [`.github/workflows/sleep-timer-ci.yml`](../../.github/workflows/sleep-timer-ci.yml) | Full release build, installer, publish |
 
 ### Lights Out CI triggers
 
