@@ -1,0 +1,82 @@
+[
+  {
+    "file": "00-README.md",
+    "bytes": 5441,
+    "sha256": "28e454bb7e55f5fc2138b9d2167626e103cf310972dd97cbbe56075b221a5bb1"
+  },
+  {
+    "file": "01-PRODUCT-VISION.md",
+    "bytes": 5623,
+    "sha256": "4f6345aa033b29f631c91889dc3323ce54440bb7d690402f734e8f971f6fb9de"
+  },
+  {
+    "file": "02-ARCHITECTURE.md",
+    "bytes": 5774,
+    "sha256": "0d553f2ba00393fb84caeea2cc45246b02ae365335b75aaa46e7e6b95205446b"
+  },
+  {
+    "file": "03-UI-AND-THEMES.md",
+    "bytes": 4944,
+    "sha256": "4315cc56c991f28658a51469fc7ff795b2e7723a4a0844087006d39faddd3abd"
+  },
+  {
+    "file": "04-SETTINGS-AND-DATA.md",
+    "bytes": 4949,
+    "sha256": "4b4374ced988b0664645a4acd10fd551a8b4cfe35a124395a95ea2eb117025ca"
+  },
+  {
+    "file": "05-FEATURES-SHIPPED.md",
+    "bytes": 4205,
+    "sha256": "65979fd3b12d065df6b76312162d0a90e2153765ea6181e43b4469b63e9b0a7a"
+  },
+  {
+    "file": "06-FEATURES-PLANNED.md",
+    "bytes": 4238,
+    "sha256": "96c75414aa05a108371c4ac9e828cbb23139861f6d9e8ae4313c2bc159a86133"
+  },
+  {
+    "file": "07-SAFETY-AND-TESTING.md",
+    "bytes": 4368,
+    "sha256": "4191951dcc4fc03963ee3eacf20fa046f16276f3a63d4fc9455a376c541c1bf2"
+  },
+  {
+    "file": "08-DEPLOY-AND-BUILD.md",
+    "bytes": 3290,
+    "sha256": "67992f049b44dda195e4893cd9bfe7cf936ed72cbd2af48eba38b01440b1cb9b"
+  },
+  {
+    "file": "09-MODULES-REFERENCE.md",
+    "bytes": 4628,
+    "sha256": "454bbf28f8b9e2388a93c1bae0513c42ef11d5535728c8a12ca96e8cd9a846f9"
+  },
+  {
+    "file": "10-CLI-AND-AUTOMATION.md",
+    "bytes": 3540,
+    "sha256": "d216c7a302821f5bdcd8f8caa9d04d5013dbcafb452cbf7e0027a77522a74684"
+  },
+  {
+    "file": "11-LUXGRID-INTEGRATION.md",
+    "bytes": 2642,
+    "sha256": "c2bc3e88cc52d455ccbc0f5de0e3ac3e5957053955b3512092310ad1135fa2c3"
+  },
+  {
+    "file": "12-TROUBLESHOOTING.md",
+    "bytes": 4293,
+    "sha256": "5d6e745b73aaa177171412595d4e026bedc9c57c2ea48dc5e001f19f7c982c98"
+  },
+  {
+    "file": "13-GLOSSARY.md",
+    "bytes": 4146,
+    "sha256": "268702e2848fa621a96aa158f5972fc6941f06a65765a392ccc71d14becad977"
+  },
+  {
+    "file": "AGENT-QUICKSTART.md",
+    "bytes": 1137,
+    "sha256": "e152ab1ce24178de045633401b71eb95ce00f6d140c7f366b69a1e1f3875f076"
+  },
+  {
+    "file": "REWRITE-SUMMARY.md",
+    "bytes": 1061,
+    "sha256": "bca735600a3deeb88c292179a5fc2b41bbaee3cc3893002bab59238a8e41f931"
+  }
+]

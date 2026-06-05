@@ -1,0 +1,121 @@
+name: Lights Out CI
+
+# Docs lint, safety gates, and safe local build. Never launches GUI without DryRun. Never shuts down PC.
+# Local equivalent:  $env:SLEEPTIMER_CI='1'; $env:SLEEPTIMER_DRY_RUN='1'; .\scripts\CI-Local.ps1
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'SleepTimer-Tonight.ps1'
+      - 'scripts/**'
+      - 'modules/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'PRODUCT.md'
+      - 'VERSION'
+      - 'CHANGELOG.md'
+      - '.github/workflows/lights-out-ci.yml'
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: lights-out-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: pwsh
+
+env:
+  SLEEPTIMER_CI: "1"
+  SLEEPTIMER_DRY_RUN: "1"
+
+jobs:
+  validate-and-build:
+    name: Validate and Build (safe)
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show PowerShell version
+        run: |
+          $PSVersionTable | Format-List
+          Write-Host "SLEEPTIMER_CI=$env:SLEEPTIMER_CI"
+          Write-Host "SLEEPTIMER_DRY_RUN=$env:SLEEPTIMER_DRY_RUN"
+
+      - name: Agent safety lint
+        run: ./scripts/Test-AgentSafety.ps1
+
+      - name: Sleep Timer validation
+        run: ./scripts/Test-SleepTimer.ps1
+
+      - name: Documentation lint
+        run: ./scripts/Test-Docs.ps1
+
+      - name: Local CI build (safe — no GUI launch)
+        run: ./scripts/CI-Local.ps1 -SkipInstaller
+
+      - name: Verify no unsafe SleepTimer.exe launch in workflows/scripts
+        run: |
+          $unsafe = @()
+          $files = @(
+            Get-ChildItem -Path .github/workflows -Filter '*.yml' -File -ErrorAction SilentlyContinue
+            Get-ChildItem -Path scripts -Filter '*.ps1' -File -ErrorAction SilentlyContinue
+          )
+          foreach ($file in $files) {
+            if ($file.Name -eq 'Test-AgentSafety.ps1') { continue }
+            $lines = Get-Content -LiteralPath $file.FullName
+            for ($i = 0; $i -lt $lines.Count; $i++) {
+              $line = $lines[$i]
+              if ($line -notmatch '(?i)(Start-Process|SleepTimer\.exe|start\s+"")') { continue }
+              if ($line -match '(?i)(Copy-Item|Get-Content|Write-Host|Out-File|Set-Content|Test-Path|Join-Path|`-DryRun|-Demo|ArgumentList[^\n]*(DryRun|Demo)|SLEEPTIMER_DRY_RUN|SLEEPTIMER_DEMO|USER_LAUNCHER|must not|Do not|Never|without -DryRun)') { continue }
+              $start = [math]::Max(0, $i - 8)
+              $ctx = ($lines[$start..$i] -join "`n")
+              if ($ctx -match 'USER_LAUNCHER') { continue }
+              $unsafe += "$($file.Name):$($i+1): $line"
+            }
+          }
+          if ($unsafe.Count -gt 0) {
+            Write-Host '::error::Unsafe SleepTimer.exe launch patterns found:'
+            $unsafe | ForEach-Object { Write-Host $_ }
+            exit 1
+          }
+          Write-Host 'No unsafe automated SleepTimer.exe launches found.'
+
+      - name: Job summary
+        if: always()
+        run: |
+          $v = (Get-Content VERSION -Raw).Trim()
+          $sha = if (Test-Path dist/Release/SHA256.txt) { Get-Content dist/Release/SHA256.txt -Raw } else { 'n/a' }
+          @"
+          ## Lights Out CI (safe)
+          | Check | Status |
+          |-------|--------|
+          | VERSION | ``$v`` |
+          | SLEEPTIMER_CI | ``$env:SLEEPTIMER_CI`` |
+          | SLEEPTIMER_DRY_RUN | ``$env:SLEEPTIMER_DRY_RUN`` |
+          | SHA256 | ``$sha`` |
+          | GUI launch | **none** |
+          | Real shutdown | **blocked** |
+          "@ | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+
+      - name: Upload CI artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LightsOut-CI-artifacts
+          path: |
+            ci-artifacts/latest/**
+            dist/Release/SleepTimer.exe
+            dist/Release/SHA256.txt
+            dist/Release/BUILD_INFO.txt
+            dist/Release/CI_REPORT.txt
+          retention-days: 14
+          if-no-files-found: warn

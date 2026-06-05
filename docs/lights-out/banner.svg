@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a12"/>
+      <stop offset="100%" stop-color="#12121c"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#edaf58"/>
+      <stop offset="55%" stop-color="#58d2a8"/>
+      <stop offset="100%" stop-color="#eb6473"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <circle cx="640" cy="260" r="120" fill="none" stroke="#222230" stroke-width="14"/>
+  <circle cx="640" cy="260" r="120" fill="none" stroke="url(#ring)" stroke-width="14" stroke-dasharray="520 240" stroke-linecap="round" transform="rotate(-90 640 260)" filter="url(#glow)"/>
+  <circle cx="640" cy="260" r="48" fill="#faf8f2" opacity="0.92"/>
+  <text x="640" y="430" text-anchor="middle" fill="#faf8f2" font-family="Segoe UI, system-ui, sans-serif" font-size="72" font-weight="700" letter-spacing="4">LIGHTS OUT</text>
+  <text x="640" y="490" text-anchor="middle" fill="#696976" font-family="Segoe UI, system-ui, sans-serif" font-size="28">The bedtime shutdown timer for Windows</text>
+  <text x="640" y="560" text-anchor="middle" fill="#edaf58" font-family="Segoe UI, system-ui, sans-serif" font-size="22">Open ’ countdown ’ shut down safely</text>
+</svg>
