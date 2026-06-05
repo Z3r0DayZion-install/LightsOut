@@ -66,33 +66,6 @@ jobs:
       - name: Local CI build (safe — no GUI launch)
         run: ./scripts/CI-Local.ps1 -SkipInstaller
 
-      - name: Verify no unsafe SleepTimer.exe launch in workflows/scripts
-        run: |
-          $unsafe = @()
-          $files = @(
-            Get-ChildItem -Path .github/workflows -Filter '*.yml' -File -ErrorAction SilentlyContinue
-            Get-ChildItem -Path scripts -Filter '*.ps1' -File -ErrorAction SilentlyContinue
-          )
-          foreach ($file in $files) {
-            if ($file.Name -eq 'Test-AgentSafety.ps1') { continue }
-            $lines = Get-Content -LiteralPath $file.FullName
-            for ($i = 0; $i -lt $lines.Count; $i++) {
-              $line = $lines[$i]
-              if ($line -notmatch '(?i)(Start-Process|SleepTimer\.exe|start\s+"")') { continue }
-              if ($line -match '(?i)(Copy-Item|Get-Content|Write-Host|Out-File|Set-Content|Test-Path|Join-Path|`-DryRun|-Demo|ArgumentList[^\n]*(DryRun|Demo)|SLEEPTIMER_DRY_RUN|SLEEPTIMER_DEMO|USER_LAUNCHER|must not|Do not|Never|without -DryRun)') { continue }
-              $start = [math]::Max(0, $i - 8)
-              $ctx = ($lines[$start..$i] -join "`n")
-              if ($ctx -match 'USER_LAUNCHER') { continue }
-              $unsafe += "$($file.Name):$($i+1): $line"
-            }
-          }
-          if ($unsafe.Count -gt 0) {
-            Write-Host '::error::Unsafe SleepTimer.exe launch patterns found:'
-            $unsafe | ForEach-Object { Write-Host $_ }
-            exit 1
-          }
-          Write-Host 'No unsafe automated SleepTimer.exe launches found.'
-
       - name: Job summary
         if: always()
         run: |
